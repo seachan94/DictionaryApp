@@ -5,6 +5,9 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.Interceptor
+import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
@@ -13,17 +16,15 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
+
+
     @Provides
     @Singleton
-    fun provideRetrofit() : Retrofit =
+    fun provideRetrofit() : DictionaryApi =
         Retrofit.Builder().apply {
             baseUrl("https://api.dictionaryapi.dev/")
             addConverterFactory(GsonConverterFactory.create())
         }.build()
-
-    @Singleton
-    @Provides
-    fun provideApiService(retrofit: Retrofit): DictionaryApi =
-        retrofit.create(DictionaryApi::class.java)
+            .create(DictionaryApi::class.java)
 
 }
