@@ -1,4 +1,4 @@
-package com.example.dictionaryapp.feature_dictionary.data.util
+package com.example.dictionaryapp.util
 
 import com.google.gson.Gson
 import java.lang.reflect.Type

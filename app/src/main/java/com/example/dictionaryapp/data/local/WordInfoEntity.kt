@@ -1,4 +1,4 @@
-package com.example.dictionaryapp.feature_dictionary.data.local.entity
+package com.example.dictionaryapp.data.local
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

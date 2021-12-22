@@ -1,4 +1,4 @@
-package com.example.dictionaryapp.feature_dictionary.presentation
+package com.example.dictionaryapp.data
 
 import com.example.dictionaryapp.feature_dictionary.domain.model.WordInfo
 
