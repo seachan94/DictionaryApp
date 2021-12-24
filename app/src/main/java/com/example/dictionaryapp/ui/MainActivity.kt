@@ -35,6 +35,7 @@ class MainActivity : ComponentActivity() {
                 Log.d(TAG, "onCreate: clickBtn")
                 viewModel.requestWord()
             }
+
         }
     }
 }

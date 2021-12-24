@@ -5,18 +5,11 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.dictionaryapp.data.WordInfoState
-import com.example.dictionaryapp.data.remote.repository.DictionaryApi
+import com.example.dictionaryapp.data.remote.Word
 import com.example.dictionaryapp.data.remote.repository.WordInfoRepository
-import com.example.dictionaryapp.feature_dictionary.domain.model.WordInfo
 import com.example.dictionaryapp.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Inject
 
 @HiltViewModel
@@ -27,11 +20,11 @@ class DictionaryViewModel @Inject constructor(
     val TAG = "sechan"
     val searchText = MutableStateFlow("")
 
-    private var _wordData = MutableLiveData(emptyList<WordInfo>())
-    val wordData : LiveData<List<WordInfo>> get() = _wordData
+    private var _wordData = MutableLiveData(Word(null))
+    val wordData : LiveData<Word> get() = _wordData
 
-    private var _resultState = MutableStateFlow<Resource<List<WordInfo>>>(Resource.Success(null))
-    val resultState : StateFlow<Resource<List<WordInfo>>> get() = _resultState
+    private var _resultState = MutableStateFlow<Resource<Word>>(Resource.Success(null))
+    val resultState : StateFlow<Resource<Word>> get() = _resultState
 
 
     suspend fun requestWord()=

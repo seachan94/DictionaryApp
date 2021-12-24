@@ -1,21 +1,16 @@
 package com.example.dictionaryapp.data.remote.repository
 
-import com.example.dictionaryapp.feature_dictionary.domain.model.WordInfo
+import com.example.dictionaryapp.data.remote.Word
 import retrofit2.Call
 import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.Query
 
 interface DictionaryApi {
 
-
-    @GET("api/v2/entries/ko/{word}")
+    @GET("search.do")
     suspend fun searchWordInfo(
-        @Path("word") word : String
-    ) : List<WordInfo>
-
-    @GET("api/v2/entries/en/{word}")
-    suspend fun searchWordInfoEn(
-        @Path("word") word : String
-    ) : List<WordInfo>
-
+        @Query("key") key : String,
+        @Query("req_type") type : String,
+        @Query("q") searchValue : String
+    ) : Word
 }
