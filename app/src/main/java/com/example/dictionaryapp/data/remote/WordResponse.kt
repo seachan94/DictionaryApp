@@ -15,14 +15,13 @@ data class Definition(
 
 @Parcelize
 data class Meaning(
-    val definition: List<Definition>,
+    val definitions: List<Definition>,
     val partOfSpeech : String
 ) : Parcelable
 
 @Parcelize
 data class WordInfo (
     val meanings: List<Meaning>,
-    val origin :String,
     val phonetic: String,
     val word: String
 ):Parcelable

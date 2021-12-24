@@ -33,13 +33,14 @@ class DictionaryViewModel @Inject constructor(
     private var _resultState = MutableStateFlow<Resource<List<WordInfo>>>(Resource.Success(null))
     val resultState : StateFlow<Resource<List<WordInfo>>> get() = _resultState
 
+
     suspend fun requestWord()=
-        wordApi.getSearchWord("apple").stateIn(
+        wordApi.getSearchWord(searchText.value).stateIn(
             scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000L),
             initialValue = Resource.Loading
         ).collect {
-            Log.d(TAG, "requestWord: $it")
+            Log.d(TAG, "requestWord: ${searchText.value}")
             when(it){
                 is Resource.Loading ->{
                     _resultState.value =Resource.Loading

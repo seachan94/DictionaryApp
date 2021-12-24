@@ -16,7 +16,6 @@ data class WordInfoEntity(
     fun toWordInfo(): WordInfo {
         return WordInfo(
             meanings,
-            origin,
             phonetic,
             word
         )

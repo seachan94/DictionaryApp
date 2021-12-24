@@ -20,16 +20,17 @@ class WordRepositoryImpl @Inject constructor(
     val TAG = "sechan"
 
     override fun getSearchWord(word: String): Flow<Resource<List<WordInfo>>> = flow{
-        Log.d(TAG, "getSearchWord: start")
+
         val response : List<WordInfo> = wordApi.searchWordInfoEn(word)
         Log.d(TAG, "getSearchWord: $response")
+        kotlinx.coroutines.delay(1000) // progress bar test 위해 설정
         if(response.isNotEmpty()){
             emit(Resource.Success(response))
         }else{
             emit(Resource.Error("검색한 단어와 일치하는 것이 없습니다."))
         }
-    }.catch {e->
-
+    }.catch { e->
+        Log.e(TAG, "getSearchWord:error  ${e.message}" )
         emit(Resource.Error("네트워크 에러입니다.\n 잠시 후 사용해 주세요"))
     }.flowOn(Dispatchers.IO)
 

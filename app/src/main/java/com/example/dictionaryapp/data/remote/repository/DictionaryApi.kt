@@ -18,8 +18,4 @@ interface DictionaryApi {
         @Path("word") word : String
     ) : List<WordInfo>
 
-    @GET("api/v2/entries/en/{word}")
-    fun searchWordInfotest(
-        @Path("word") word : String
-    ) : Call<List<WordInfo>>
 }

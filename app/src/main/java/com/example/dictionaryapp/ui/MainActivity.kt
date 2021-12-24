@@ -23,7 +23,11 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater).apply{
+            data = viewModel
+            lifecycleOwner = this@MainActivity
+        }
+
         setContentView(binding.root)
 
         binding.searchbtn.setOnClickListener {
@@ -31,7 +35,6 @@ class MainActivity : ComponentActivity() {
                 Log.d(TAG, "onCreate: clickBtn")
                 viewModel.requestWord()
             }
-
         }
     }
 }
