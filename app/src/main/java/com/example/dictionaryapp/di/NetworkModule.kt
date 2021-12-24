@@ -17,12 +17,11 @@ import javax.inject.Singleton
 object NetworkModule {
 
 
-
     @Provides
     @Singleton
     fun provideRetrofit() : DictionaryApi =
         Retrofit.Builder().apply {
-            baseUrl("https://api.dictionaryapi.dev/")
+            baseUrl("https://stdict.korean.go.kr/api/")
             addConverterFactory(GsonConverterFactory.create())
         }.build()
             .create(DictionaryApi::class.java)
