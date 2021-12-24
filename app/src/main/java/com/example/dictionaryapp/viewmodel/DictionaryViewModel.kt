@@ -40,7 +40,7 @@ class DictionaryViewModel @Inject constructor(
             started = SharingStarted.WhileSubscribed(5000L),
             initialValue = Resource.Loading
         ).collect {
-            Log.d(TAG, "requestWord: ${searchText.value}")
+
             when(it){
                 is Resource.Loading ->{
                     _resultState.value =Resource.Loading
