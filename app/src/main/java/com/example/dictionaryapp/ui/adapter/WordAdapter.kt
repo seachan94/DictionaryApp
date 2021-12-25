@@ -13,6 +13,8 @@ import javax.inject.Inject
 class WordAdapter  :RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
 
     lateinit var wordList : List<Item>
+    var onClickDetail : ((Int)->Unit)? = null
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordViewHolder {
         return WordViewHolder(
@@ -25,7 +27,7 @@ class WordAdapter  :RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
     }
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
-        holder.bind(wordList.get(position).sense)
+        holder.bind(wordList.get(position).sense,position)
     }
 
     override fun getItemCount() = wordList.size
@@ -39,10 +41,12 @@ class WordAdapter  :RecyclerView.Adapter<WordAdapter.WordViewHolder>() {
     inner class WordViewHolder(private val binding : ItemWordBinding) :
         RecyclerView.ViewHolder(binding.root){
 
-        fun bind(sense : Sense){
-            Log.d("sechan", "bind: $sense")
+        fun bind(sense : Sense, position: Int){
             binding.apply{
                 this.wordinfo =sense
+                root.setOnClickListener {
+                    onClickDetail?.invoke(position)
+                }
             }
         }
 

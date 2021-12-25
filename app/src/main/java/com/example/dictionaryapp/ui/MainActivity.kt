@@ -1,5 +1,6 @@
 package com.example.dictionaryapp.ui
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,19 +28,26 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
         binding = ActivityMainBinding.inflate(layoutInflater).apply{
             data = viewModel
             lifecycleOwner = this@MainActivity
         }
 
         setContentView(binding.root)
-
+        binding.wordRecyclerview.adapter = wordAdapter
+        wordAdapter.onClickDetail =  {
+            Intent(this,DetailActivity::class.java)
+                .run{
+                    startActivity(this)
+                }
+        }
         binding.searchbtn.setOnClickListener {
             lifecycleScope.launch{
                 viewModel.requestWord()
             }
         }
 
-        binding.wordRecyclerview.adapter = wordAdapter
     }
 }
