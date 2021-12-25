@@ -29,23 +29,22 @@ class WordAdapter  :ListAdapter<Item,WordAdapter.WordViewHolder>(DiffCallback) {
     }
 
     override fun onBindViewHolder(holder: WordViewHolder, position: Int) {
-        holder.bind(wordList.get(position).sense,position)
+        holder.bind(wordList.get(position),position)
     }
 
 
     fun setItem( data : Any?){
         val list = if(data == null) emptyList() else (data as Word).channel!!.item
         this.wordList = list
-        Log.e("sechan", "setItem: submit!", )
         submitList(this.wordList)
     }
 
     inner class WordViewHolder(private val binding : ItemWordBinding) :
         RecyclerView.ViewHolder(binding.root){
 
-        fun bind(sense : Sense, position: Int){
+        fun bind(item : Item, position: Int){
             binding.apply{
-                this.wordinfo =sense
+                this.wordinfo =item
                 root.setOnClickListener {
                     onClickDetail?.invoke(position)
                 }

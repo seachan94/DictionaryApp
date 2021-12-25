@@ -68,6 +68,7 @@
             app:dividerColor ="@{@color/purple_500}"
             app:dividerHeight="@{@dimen/recycler_divider_height}"
             app:dividerPadding="@dimen/recycler_divider_padding"
+
             />
 
 

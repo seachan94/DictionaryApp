@@ -6,29 +6,54 @@
     <data>
         <variable
             name="wordinfo"
-            type="com.example.dictionaryapp.data.remote.Sense" />
+            type="com.example.dictionaryapp.data.remote.Item" />
 
     </data>
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:minHeight="100dp"
+        android:layout_margin="10dp"
         >
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@{wordinfo.toXmlNumberXml()}"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="number" />
+
+        <TextView
+            android:id="@+id/pos"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="@{wordinfo.toXmlPosXml()}"
+            tools:text="pos"
+            app:layout_constraintTop_toTopOf="@id/number"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@id/definition"
+            android:textStyle="bold"/>
 
         <TextView
             android:id="@+id/definition"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:gravity="center_vertical"
-            android:text="@{wordinfo.definition}"
+            android:text="@{wordinfo.sense.toXmlDefinition()}"
             android:textSize="15sp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            tools:text="정의" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@id/pos"
+            tools:text="정의"
+            />
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

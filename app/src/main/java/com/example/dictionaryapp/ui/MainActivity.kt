@@ -38,8 +38,10 @@ class MainActivity : ComponentActivity() {
         setContentView(binding.root)
         binding.wordRecyclerview.adapter = wordAdapter
         wordAdapter.onClickDetail =  {
-            Intent(this,DetailActivity::class.java)
-                .run{
+            Intent(this,DetailActivity::class.java).apply{
+                putExtra("data",viewModel.wordData.value?.channel!!.item.get(it))
+              //  putExtra("position",it)
+            }.run{
                     startActivity(this)
                 }
         }

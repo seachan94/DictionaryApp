@@ -22,14 +22,25 @@ data class Item(
     val sup_no: String,
     val target_code: String,
     val word: String
-):Parcelable
+):Parcelable{
+    fun toXmlPosXml() : String{
+        return "품사 : $pos\n"
+    }
+    fun toXmlNumberXml() : String{
+        return "no.$sup_no\n"
+    }
+}
 
 @Parcelize
 data class Sense(
     val definition: String,
     val link: String,
     val type: String
-):Parcelable
+):Parcelable{
+    fun toXmlDefinition() : String{
+        return "정의 : $definition"
+    }
+}
 
 @Parcelize
 data class Word(
