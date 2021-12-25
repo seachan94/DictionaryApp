@@ -1,6 +1,5 @@
 package com.example.dictionaryapp.util
 
-typealias SimpleResource = Resource<Unit>
 
 sealed class Resource<out T> {
     object Loading : Resource<Nothing>()
