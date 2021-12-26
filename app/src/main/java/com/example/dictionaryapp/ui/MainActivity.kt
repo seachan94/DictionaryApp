@@ -7,6 +7,7 @@ import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.viewModels
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import com.example.dictionaryapp.data.remote.repository.DictionaryApi
 import com.example.dictionaryapp.data.remote.repository.WordInfoRepository
@@ -21,7 +22,10 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
     val TAG = "sechan"
     private lateinit var binding : ActivityMainBinding
-    private val viewModel : DictionaryViewModel by viewModels()
+    private val viewModel  by lazy {
+        ViewModelProvider(this).get(DictionaryViewModel::class.java)
+    }
+       
 
     @Inject
     lateinit var wordAdapter : WordAdapter
@@ -37,14 +41,15 @@ class MainActivity : ComponentActivity() {
 
         setContentView(binding.root)
         binding.wordRecyclerview.adapter = wordAdapter
+
         wordAdapter.onClickDetail =  {
             Intent(this,DetailActivity::class.java).apply{
                 putExtra("data",viewModel.wordData.value?.channel!!.item.get(it))
-              //  putExtra("position",it)
             }.run{
                     startActivity(this)
-                }
+            }
         }
+        
         binding.searchbtn.setOnClickListener {
             lifecycleScope.launch{
                 viewModel.requestWord()
@@ -52,4 +57,5 @@ class MainActivity : ComponentActivity() {
         }
 
     }
+
 }

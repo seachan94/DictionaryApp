@@ -2,9 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
-
     <data>
-
         <variable
             name="data"
             type="com.example.dictionaryapp.data.remote.Item" />
@@ -12,40 +10,49 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_margin="20dp">
         <TextView
             android:id="@+id/word"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@{data.word}"
             android:textSize="20sp"
-            android:layout_margin="30dp"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="@id/definition"
             tools:text ="단어"
             android:textColor="@color/black"
             android:textStyle="bold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             />
+
         <TextView
             android:id="@+id/definition"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/word"
+            android:layout_marginTop="40dp"
+            android:text="@{data.sense.toXmlDefinition()}"
+            app:layout_constraintTop_toBottomOf="@id/word"
             app:layout_constraintStart_toStartOf="parent"
-            tools:text = "정의"
-            android:text="@{data.sense.toXmlDefinition()"
-            />
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:text="정의" />
+        <TextView
+            android:id="@+id/textlink"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="상세 보기 : "
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/definition"
+            app:layout_constraintRight_toLeftOf="@id/link"/>
+
         <TextView
             android:id="@+id/link"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            tools:text ="url"
-            app:layout_constraintTop_toTopOf="@id/definition"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent
-"           android:text="@{data.sense.link}"
-            />
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/definition"
+            app:layout_constraintLeft_toRightOf="@id/textlink"
+            tools:text="url"
+            linkHtml="@{data.sense.link}"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

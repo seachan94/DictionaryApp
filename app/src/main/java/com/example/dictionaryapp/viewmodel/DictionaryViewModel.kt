@@ -1,11 +1,9 @@
 package com.example.dictionaryapp.viewmodel
 
+import android.app.Application
 import android.util.Log
 import androidx.databinding.Bindable
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
+import androidx.lifecycle.*
 import com.example.dictionaryapp.data.remote.Word
 import com.example.dictionaryapp.data.remote.repository.WordInfoRepository
 import com.example.dictionaryapp.util.Resource
