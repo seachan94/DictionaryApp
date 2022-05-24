@@ -1,10 +1,8 @@
 package com.nocompany.data.repository
 
-import android.app.usage.NetworkStats
-import android.net.Network
 import com.nocompany.data.api.WordApi
 import com.nocompany.data.mapper.WordEntityMapper
-import com.nocompany.domain.model.NetworkResult
+import com.nocompany.domain.model.ResultState
 import com.nocompany.domain.model.WordItem
 import com.nocompany.domain.repository.NaverWordRepository
 import kotlinx.coroutines.Dispatchers
@@ -20,15 +18,14 @@ class NaverWordRepositoryImpl @Inject constructor(
         query: String,
         display: Int,
         page: Int,
-    ): Flow<NetworkResult<List<WordItem>>> = flow{
-
-        emit(NetworkResult.Loading)
-        val response = wordApi.getWordInfo(query,10,1)
-        emit(NetworkResult.Success(WordEntityMapper.mapperToWordItem(response)))
-
+    ): Flow<ResultState<WordItem>> = flow{
+        emit(ResultState.Loading)
+        val response = wordApi.getWordInfo(query,display,page)
+        emit(ResultState.Success(WordEntityMapper.mapperToWordItem(response)))
     }.catch { e->
+        emit(ResultState.Error(e))
+    }
 
-        emit(NetworkResult.Error(e))
-    }.flowOn(Dispatchers.IO)
+
 
 }
