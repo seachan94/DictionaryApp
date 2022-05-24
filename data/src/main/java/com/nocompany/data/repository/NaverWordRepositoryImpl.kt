@@ -2,6 +2,7 @@ package com.nocompany.data.repository
 
 import com.nocompany.data.api.WordApi
 import com.nocompany.data.mapper.WordEntityMapper
+import com.nocompany.domain.model.Items
 import com.nocompany.domain.model.ResultState
 import com.nocompany.domain.model.WordItem
 import com.nocompany.domain.repository.NaverWordRepository
