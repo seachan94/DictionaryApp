@@ -4,18 +4,16 @@ import com.nocompany.data.model.WordResponse
 import com.nocompany.domain.model.Items
 import com.nocompany.domain.model.WordItem
 
-object WordEntityMapper {
-    fun mapperToWordItem(response : WordResponse) : WordItem =
+object WordMapper {
+    fun toWordItems(response : WordResponse) : WordItem=
         WordItem(
-            response.items.map{
+            items = response.items.map {
                 Items(
                     it.title,
-                    it.link,
+                    it.description,
                     it.description,
                     it.thumbnail
                 )
             }
         )
-
-
 }

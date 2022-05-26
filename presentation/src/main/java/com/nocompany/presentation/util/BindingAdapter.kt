@@ -1,6 +1,5 @@
 package com.nocompany.presentation.util
 
-import android.util.Log
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ListAdapter
