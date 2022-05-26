@@ -41,8 +41,7 @@
             app:layout_constraintBottom_toBottomOf="parent"
             tools:listitem="@layout/item_word"
             android:paddingTop="10dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            setItemsFromNetWork="@{vm.resultState}"/>
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/searchBtn"

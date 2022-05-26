@@ -3,6 +3,7 @@ package com.example.dictionaryapp.di
 import com.example.dictionaryapp.BuildConfig
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.nocompany.data.api.WordApi
+import com.nocompany.data.api.retrofit.NetworkResponseAdapterFactory
 import com.nocompany.data.repository.NaverWordRepositoryImpl
 import com.nocompany.domain.repository.NaverWordRepository
 import dagger.Module
@@ -55,11 +56,13 @@ object NetworkModule {
         }
     }
 
+    
     @Singleton
     @Provides
     fun provideRetrofit(okHttpClient: OkHttpClient, json: Json): Retrofit =
         Retrofit.Builder().apply {
             addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
+            addCallAdapterFactory(NetworkResponseAdapterFactory())
             baseUrl("https://openapi.naver.com")
             client(okHttpClient)
         }.build()

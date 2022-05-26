@@ -1,11 +1,15 @@
 package com.nocompany.domain.usecase
 
+import android.util.Log
+import com.nocompany.domain.model.ResultState
+import com.nocompany.domain.model.WordItem
 import com.nocompany.domain.repository.NaverWordRepository
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class GetSearchListUseCase @Inject constructor(
     private val naverWordRepository: NaverWordRepository
 ) {
-    suspend operator fun invoke(query : String, display : Int ,page : Int) =
-        naverWordRepository.getSearchResult(query,display,page)
+    suspend operator fun<T> invoke(query : String) : Flow<T> =
+        naverWordRepository.getSearchResult(query)
 }

@@ -9,13 +9,13 @@ data class WordResponse(
     @SerialName("total") val total : Int,
     @SerialName("start") val start : Int,
     @SerialName("display") val display : Int,
-    @SerialName("items") val items : List<ItemResponse>
+    @SerialName("items") val items : List<Item>
 )
 @Serializable
-data class ItemResponse(
-    @SerialName("title") val title : String,
-    @SerialName("link") val link : String,
-    @SerialName("description") val description : String,
-    @SerialName("thumbnail") val thumbnail : String
+data class Item(
+    val title : String,
+    val link : String,
+    val description : String,
+    val thumbnail : String
 )
 

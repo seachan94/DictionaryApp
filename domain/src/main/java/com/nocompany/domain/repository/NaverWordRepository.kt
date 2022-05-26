@@ -6,5 +6,5 @@ import com.nocompany.domain.model.WordItem
 import kotlinx.coroutines.flow.Flow
 
 interface NaverWordRepository {
-    suspend fun getSearchResult(query : String, display : Int,page : Int) : Flow<ResultState<WordItem>>
+    suspend fun<T> getSearchResult(query : String) : Flow<T>
 }
