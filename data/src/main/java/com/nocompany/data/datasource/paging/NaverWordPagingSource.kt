@@ -1,5 +1,6 @@
 package com.nocompany.data.datasource.paging
 
+import android.text.Html
 import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
@@ -28,9 +29,7 @@ class NaverWordPagingSource(
             val start = if(position == 1 ) 1 else ((position-1) * DEFAULT_SIZE)+1
 
             val response = wordApi.getWordInfo(searchTxt, params.loadSize, start)
-
             val result = if (response is ResultState.Success) {
-
                 val isLastPage = position * DEFAULT_SIZE >= response.data.total
                 val data = WordMapper.toWordItems(response.data)
                 LoadResult.Page(

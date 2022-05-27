@@ -1,6 +1,8 @@
 package com.nocompany.presentation.util
 
 import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.text.parseAsHtml
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -8,6 +10,11 @@ import com.bumptech.glide.Glide
 import com.nocompany.domain.model.ResultState
 import com.nocompany.presentation.R
 
+
+@BindingAdapter("htmltext")
+fun TextView.setHtmlText(htmlText : String){
+    text = htmlText.parseAsHtml()
+}
 @BindingAdapter("setItemsFromNetWork")
 fun<T> RecyclerView.setItemToRecyclerView(resultState : ResultState<List<T>>?){
     if( resultState is ResultState.Success){

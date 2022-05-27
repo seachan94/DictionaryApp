@@ -28,8 +28,9 @@ class MainViewModel @Inject constructor(
     var testItem = PagingData.empty<Items>()
 
     fun testcall() = viewModelScope.launch {
-        getWordUseCase<PagingData<Items>>("아이오").collect{
+        getWordUseCase<PagingData<Items>>("나무").collect{
             testItem = it
+
         }
     }
 
