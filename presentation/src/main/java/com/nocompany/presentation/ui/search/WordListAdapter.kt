@@ -11,19 +11,21 @@ import com.nocompany.presentation.databinding.ItemWordBinding
 
 class WordListAdapter : PagingDataAdapter<Items, WordListViewHolder>(Differ) {
 
+    lateinit var onclick : ((Int)->Unit)
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): WordListViewHolder {
         return WordListViewHolder(
             ItemWordBinding.inflate(
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            onclick
         )
     }
 
     override fun onBindViewHolder(holder: WordListViewHolder, position: Int) {
         getItem(position)?.let{
-            holder.bindItem(it)
+            holder.bindItem(it,position)
         }
     }
 
