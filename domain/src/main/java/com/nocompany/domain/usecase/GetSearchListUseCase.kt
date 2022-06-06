@@ -10,6 +10,6 @@ import javax.inject.Inject
 class GetSearchListUseCase @Inject constructor(
     private val naverWordRepository: NaverWordRepository
 ) {
-    suspend operator fun<T> invoke(query : String) : Flow<T> =
+    operator fun<T> invoke(query : String) : Flow<T> =
         naverWordRepository.getSearchResult(query)
 }

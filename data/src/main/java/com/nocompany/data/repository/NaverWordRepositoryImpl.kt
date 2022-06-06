@@ -20,7 +20,7 @@ import javax.inject.Inject
 class NaverWordRepositoryImpl @Inject constructor(
     private val wordApi : WordApi
 ): NaverWordRepository {
-    override suspend fun<T> getSearchResult(query: String, ): Flow<T> {
+    override fun<T> getSearchResult(query: String, ): Flow<T> {
         return Pager(
             config = PagingConfig(
                 pageSize = NaverWordPagingSource.DEFAULT_SIZE,

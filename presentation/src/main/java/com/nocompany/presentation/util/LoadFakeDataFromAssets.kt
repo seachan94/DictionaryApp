@@ -5,11 +5,11 @@ import android.util.Log
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.nocompany.domain.model.WordItem
+import dagger.hilt.EntryPoint
 import dagger.hilt.android.qualifiers.ApplicationContext
 import java.io.IOException
 import java.io.InputStreamReader
 import java.lang.reflect.Type
-
 class LoadFakeDataFromAssets(
     @ApplicationContext
     private val context : Context
