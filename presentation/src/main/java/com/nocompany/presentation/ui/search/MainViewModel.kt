@@ -9,6 +9,7 @@ import com.nocompany.domain.model.ResultState
 import com.nocompany.domain.model.WordItem
 import com.nocompany.domain.usecase.GetSearchListUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
+import dagger.hilt.android.scopes.ActivityRetainedScoped
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -27,12 +28,8 @@ class MainViewModel @Inject constructor(
 
     var testItem = PagingData.empty<Items>()
 
-    fun testcall() = viewModelScope.launch {
-        getWordUseCase<PagingData<Items>>("나무").collect{
-            testItem = it
+    fun testcall() = getWordUseCase<PagingData<Items>>("나무")
 
-        }
-    }
 
 
 }

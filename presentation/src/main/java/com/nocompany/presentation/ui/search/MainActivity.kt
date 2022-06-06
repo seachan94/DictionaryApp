@@ -10,53 +10,56 @@ import com.nocompany.domain.model.WordItem
 import com.nocompany.presentation.databinding.ActivityMainBinding
 import com.nocompany.presentation.util.LoadFakeDataFromAssets
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.scopes.ActivityRetainedScoped
+import dagger.hilt.android.scopes.ActivityScoped
 import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var binding : ActivityMainBinding
-    private val viewModel : MainViewModel by viewModels()
+    private lateinit var binding: ActivityMainBinding
+    private val viewModel: MainViewModel by viewModels()
 
-    private val adapter by lazy{ WordListAdapter() }
+    private val adapter by lazy { WordListAdapter() }
 
     val TAG = "sechan"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
-
-        binding.apply{
+        Log.d(TAG, "onCreate: hi di")
+        binding.apply {
             vm = viewModel
             recyclerview.adapter = adapter
             lifecycleOwner = this@MainActivity
             searchBtn.setOnClickListener {
-                viewModel.testcall()
-//                lifecycleScope.launch{
-//                    adapter.submitData(viewModel.testItem)
-//                }
-
+                lifecycleScope.launch{
+                    viewModel.testcall().collect {
+                        adapter.submitData(it)
+                    }
+                }
             }
 
         }
         setContentView(binding.root)
         setOnclickItem()
-        getFakeData()
+//        getFakeData()
     }
-    private fun setOnclickItem(){
+
+    private fun setOnclickItem() {
         adapter.onclick = {
-            DetailInformationFragment().show(supportFragmentManager,DetailInformationFragment.TAG)
+            DetailInformationFragment().show(supportFragmentManager, DetailInformationFragment.TAG)
         }
     }
 
 
-    private fun getFakeData(){
+    private fun getFakeData() {
         val fakeData = LoadFakeDataFromAssets(this)
             .getObjectFromJson<WordItem>(
-                "fake_word_response.json",WordItem::class.java
+                "fake_word_response.json", WordItem::class.java
             )
 
-        lifecycleScope.launch{
+        lifecycleScope.launch {
             adapter.submitData(PagingData.from(fakeData.items))
         }
     }

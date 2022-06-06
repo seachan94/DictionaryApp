@@ -1,11 +1,9 @@
-package com.example.dictionaryapp.di
+package com.example.dictionaryapp.di.network
 
 import com.example.dictionaryapp.BuildConfig
 import com.jakewharton.retrofit2.converter.kotlinx.serialization.asConverterFactory
 import com.nocompany.data.api.WordApi
 import com.nocompany.data.api.retrofit.NetworkResponseAdapterFactory
-import com.nocompany.data.repository.NaverWordRepositoryImpl
-import com.nocompany.domain.repository.NaverWordRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -22,21 +20,26 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object NetworkModule {
+object NaverNetworkModule {
 
     @Provides
     @Singleton
-    fun providesInterceptor() = Interceptor{
+    @CommonNetworkModule.NaverApi
+    fun providesInterceptor() = Interceptor {
         it.proceed(
             it.request().newBuilder()
                 .addHeader("X-Naver-Client-Id", BuildConfig.NaverApiClientId)
-                .addHeader("X-Naver-Client-Secret",BuildConfig.NaverApiClientSecrete)
+                .addHeader("X-Naver-Client-Secret", BuildConfig.NaverApiClientSecrete)
                 .build()
         )
     }
+
     @Singleton
     @Provides
-    fun providesOkHttpClient(interceptor: Interceptor) = OkHttpClient.Builder().apply {
+    @CommonNetworkModule.NaverApi
+    fun providesOkHttpClient(
+        @CommonNetworkModule.NaverApi interceptor: Interceptor,
+    ) = OkHttpClient.Builder().apply {
         hostnameVerifier { _, _ -> true }
         addInterceptor(interceptor)
         addInterceptor(HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
@@ -45,21 +48,13 @@ object NetworkModule {
         readTimeout(15, TimeUnit.SECONDS)
     }.build()
 
-    @Provides
-    @Singleton
-    fun provideConverterFactory(): Json {
-        return Json {
-            ignoreUnknownKeys = true
-            coerceInputValues = true
-            encodeDefaults = true
-            isLenient = true
-        }
-    }
-
-    
     @Singleton
     @Provides
-    fun provideRetrofit(okHttpClient: OkHttpClient, json: Json): Retrofit =
+    @CommonNetworkModule.NaverApi
+    fun provideRetrofit(
+        @CommonNetworkModule.NaverApi okHttpClient: OkHttpClient,
+        json: Json,
+    ): Retrofit =
         Retrofit.Builder().apply {
             addConverterFactory(json.asConverterFactory("application/json".toMediaType()))
             addCallAdapterFactory(NetworkResponseAdapterFactory())
@@ -69,8 +64,9 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun providesWordApi(retrofit: Retrofit) =
-        retrofit.create(WordApi::class.java)
+    fun providesWordApi(
+        @CommonNetworkModule.NaverApi retrofit: Retrofit,
+    ) = retrofit.create(WordApi::class.java)
 
 
 }
